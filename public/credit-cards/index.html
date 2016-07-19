@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>PR - Credit Cards</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+  	<div class='container'>
+	<h1>PaymentRequest</h1>
+	<h3>Credit Cards</h3>
+	<p>
+	  <a href="https://github.com/w3c/browser-payment-api">PaymentRequest</a> lets
+	  you accept payment from different payment methods.
+	</p>
+
+	<h4>Accept Credit Cards</h4>	
+	<div>
+		<button id="buyButton" class='btn'>Buy</button><br><br>
+		<pre id="result"></pre>
+	</div>
+
+</body>
+</html>
+
+<script>
+
+function onBuyClicked() {
+
+  var supportedInstruments = [{
+    supportedMethods: [
+      'amex', 'diners', 'discover', 'jcb', 'maestro', 'mastercard', 'unionpay',
+      'visa'
+    ]
+  }];
+
+  var details = {
+    total: {label: 'Donation', amount: {currency: 'USD', value: '55.00'}},
+    displayItems: [
+      {
+        label: 'Original donation amount',
+        amount: {currency: 'USD', value: '65.00'}
+      },
+      {
+        label: 'Friends and family discount',
+        amount: {currency: 'USD', value: '-10.00'}
+      },
+      {
+        label: 'Standard shipping',
+        amount: {currency: 'USD', value: '0.00'}
+      }
+    ],
+    shippingOptions: [
+      {
+        id: 'standard',
+        label: 'Standard shipping',
+        amount: {currency: 'USD', value: '0.00'},
+        selected: true
+      },
+      {
+        id: 'express',
+        label: 'Express shipping',
+        amount: {currency: 'USD', value: '12.00'}
+      }
+    ]
+  };
+
+  var options = {requestShipping: true};
+
+  try {
+    var request = new PaymentRequest(supportedInstruments, details, options); // eslint-disable-line no-undef
+
+    request.addEventListener('shippingoptionchange', function(evt) {
+      evt.updateWith(new Promise(function(resolve, reject) {
+        updateDetails(details, request.shippingOption, resolve, reject);
+      }));
+    });
+
+    request.show().then(function(instrumentResponse) {
+      // Simulate server-side processing with a 2 second delay.
+      window.setTimeout(function() {
+        instrumentResponse.complete('success')
+            .then(function() {
+              document.getElementById('result').innerHTML =
+                  'shippingOption: ' + request.shippingOption +
+                  '<br>shippingAddress: ' +
+                  JSON.stringify(
+                      toDictionary(instrumentResponse.shippingAddress),
+                      undefined, 2) +
+                  '<br>methodName: ' + instrumentResponse.methodName +
+                  '<br>details: ' +
+                  JSON.stringify(instrumentResponse.details, undefined, 2);
+            })
+            .catch(function(err) {
+              document.getElementById('result').innerHTML = (err.message);
+            });
+      }, 2000);
+    })
+    .catch(function(err) {
+      document.getElementById('result').innerHTML = (err.message);
+    });
+  } catch (e) {
+    document.getElementById('result').innerHTML = ('Developer mistake: \'' + e.message + '\'');
+  }
+
+}
+
+var buyButton = document.getElementById('buyButton');
+buyButton.setAttribute('style', 'display: none;');
+if (!('PaymentRequest' in window)) {
+  ChromeSamples.setStatus(
+      'Enable chrome://flags/#enable-experimental-web-platform-features');
+} else if (!navigator.userAgent.match(/Android/i)) {
+  document.getElementById('result').innerHTML = ('PaymentRequest is supported only on Android for now.');
+} else if (!navigator.userAgent.match(/Chrome\/5[3-4]/i)) { // eslint-disable-line no-negated-condition
+  document.getElementById('result').innerHTML = ('These tests are for Chrome 53 and 54.');
+} else {
+  buyButton.setAttribute('style', 'display: inline;');
+  buyButton.addEventListener('click', onBuyClicked);
+}
+
+function updateDetails(details, shippingOption, resolve, reject) {
+  var selectedShippingOption;
+  var otherShippingOption;
+  if (shippingOption === 'standard') {
+    selectedShippingOption = details.shippingOptions[0];
+    otherShippingOption = details.shippingOptions[1];
+    details.total.amount.value = '55.00';
+  } else if (shippingOption === 'express') {
+    selectedShippingOption = details.shippingOptions[1];
+    otherShippingOption = details.shippingOptions[0];
+    details.total.amount.value = '67.00';
+  } else {
+    reject('Unknown shipping option \'' + shippingOption + '\'');
+    return;
+  }
+  selectedShippingOption.selected = true;
+  otherShippingOption.selected = false;
+  details.displayItems.splice(2, 1, selectedShippingOption);
+  resolve(details);
+}
+
+function toDictionary(addr) {
+  var dict = {};
+  if (addr) {
+    dict.country = addr.country;
+    dict.region = addr.region;
+    dict.city = addr.city;
+    dict.dependentLocality = addr.dependentLocality;
+    dict.addressLine = addr.addressLine;
+    dict.postalCode = addr.postalCode;
+    dict.sortingCode = addr.sortingCode;
+    dict.languageCode = addr.languageCode;
+    dict.organization = addr.organization;
+    dict.recipient = addr.recipient;
+    dict.careOf = addr.careOf;
+    dict.phone = addr.phone;
+  }
+  return dict;
+}
+
+
+</script>
