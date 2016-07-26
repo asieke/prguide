@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>PR - Android Pay Gateway</title>
+    <title>PR - Android Pay Network</title>
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@
   </nav>
 
   <div class='container' style='margin-top: 80px'>
-	<h3>Android Pay - Gateway Tokens</h3>
+	<h3>Android Pay - Test</h3>
 	<p>
 	  <a href="https://github.com/w3c/browser-payment-api">PaymentRequest</a> lets
 	  you accept payment from different payment methods.
@@ -70,15 +70,15 @@ function onBuyClicked() {
     {
       supportedMethods: ['https://android.com/pay'],
       data: {
-        merchantId: '02510116604241796260',
+        environment: 'TEST',
         allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA', 'DISCOVER'],
         paymentMethodTokenizationParameters: {
           tokenizationType: 'GATEWAY_TOKEN',
           parameters: {
             'gateway': 'stripe',
             // Place your own Stripe publishable key here.
-            'stripe:publishableKey': 'pk_live_fD7ggZCtrB0vJNApRX5TyJ9T',
-            'stripe:version': '2016-07-06'
+            'stripe:publishableKey': 'pk_test_VKUbaXb3LHE7GdxyOBMNwXqa',
+            'stripe:version': '2016-03-07'
           }
         }
       }
