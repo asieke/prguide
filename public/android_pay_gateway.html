@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>PR - Android Pay</title>
+    <title>PR - Android Pay Gateway</title>
 
     <!-- Bootstrap -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,7 +21,7 @@
 
   	<div class='container'>
 	<h1>PaymentRequest</h1>
-	<h3>Android Pay</h3>
+	<h3>Android Pay - Gateway Tokens</h3>
 	<p>
 	  <a href="https://github.com/w3c/browser-payment-api">PaymentRequest</a> lets
 	  you accept payment from different payment methods.
@@ -43,7 +43,7 @@ function onBuyClicked() {
     {
       supportedMethods: ['https://android.com/pay'],
       data: {
-        merchantId: '123456',
+        merchantId: '144704904839',
         allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA'],
         paymentMethodTokenizationParameters: {
           tokenizationType: 'GATEWAY_TOKEN',
