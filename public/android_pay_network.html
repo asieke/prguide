@@ -65,13 +65,22 @@
 
 <script>
 
+
 function onBuyClicked() {
   var supportedInstruments = [
     {
       supportedMethods: ['https://android.com/pay'],
       data: {
+        //required
         merchantId: '02510116604241796260',
+
+        //if no merchant id
+        //environment: 'TEST',
+
+        //optional
         allowedCardNetworks: ['AMEX', 'MASTERCARD', 'VISA', 'DISCOVER'],
+
+        //required
         paymentMethodTokenizationParameters: {
           tokenizationType: 'NETWORK_TOKEN',
           parameters: {
@@ -112,7 +121,7 @@ function onBuyClicked() {
                 .catch(function(err) {
                   document.getElementById('result').innerHTML = (err.message);
                 });
-          }, 2000);
+          }, 0);
         })
         .catch(function(err) {
           document.getElementById('result').innerHTML = (err.message);
