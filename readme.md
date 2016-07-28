@@ -21,7 +21,7 @@ The following guide outlines how to implement Android Pay
 
 Any site can begin testing with Android Pay in test mode.
 
-1. We'll start with the (basic implementation of PaymentRequest)[https://github.com/asieke/prguide/blob/master/public/credit_cards.html] that accepts credit cards
+1. We'll start with the [basic implementation of PaymentRequest](https://github.com/asieke/prguide/blob/master/public/credit_cards.html) that accepts credit cards
 2. We’ll be modifying the supportedInstruments object within the PaymentRequest in order to let Chrome know that the website supports Android Pay 
 
 	```javascript
