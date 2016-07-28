@@ -4,20 +4,20 @@
 
 The following guide outlines how to implement Android Pay
 
-#### Review Requirements
+## Review Requirements
 - Android Pay is available to customers in the following countries: US / UK / AU / SG
 - Review the Android Pay detailed [content policies](https://support.google.com/payments/merchant/answer/75724?payments_to_biz=&rd=1) to make sure your specific goods or services are supported.
 - Your [payment processor](https://developers.google.com/android-pay/#processors) needs to support Android Pay tokens.
 - For testing, you need to [add a card](https://support.google.com/androidpay/answer/6289372?hl=en&ref_topic=6224823) to Android Pay on your test device.
 
-#### Getting Started
+## Getting Started
 - Download the latest version of [Chrome Dev](https://play.google.com/store/apps/details?id=com.chrome.dev) for Android.
 - Enable [this Chrome flag](chrome://flags/#enable-experimental-web-platform-features) to test the PaymentRequest API.
 - Because Android Pay in Chrome utilizes the PaymentRequest API, it is essential that you familiarize yourself with the [integration guide](https://developers.google.com/web/fundamentals/primers/payment-request/?hl=en) prior to continuing.
 - Work through the demo to get acquainted with the PaymentRequest API.
 - Even if you are not an Android developer, it will be useful to acquaint yourself with the [Android Pay in-app APIs](https://developers.google.com/android-pay/android/tutorial).  Because the responses returned by Android Pay are the same on Android & Chrome, the information on response handling is useful.
 
-#### Get started with Android Pay in Test Mode
+## Get started with Android Pay in Test Mode
 
 Any site can begin testing with Android Pay in test mode.
 
@@ -67,7 +67,7 @@ Any site can begin testing with Android Pay in test mode.
    - Details about the Payment token
 6. Putting it all together - [see the completed code example](https://github.com/asieke/prguide/blob/master/public/tutorial.html)
 
-#### Request a Network Token
+## Request a Network Token
 
 Now that we have a working prototype that utilizes the Android Pay test environment, it is just a few changes to start requesting network tokens.  Requesting a Network token requires 2 pieces of information to be included in the PaymentRequest.
 
@@ -142,7 +142,7 @@ In requesting a gateway token, you eliminate a network call to your gateway as i
 	    }
 	  ];
 	 ```
-	 
+
 4. The response from Chrome/Android Pay now includes a chargeable gateway token in addition to the same billing and contact information provided in the previous examples.
 5. Putting it all together - [see the completed code example](https://github.com/asieke/prguide/blob/master/public/android_pay_gateway.html)
 
