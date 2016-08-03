@@ -11,8 +11,10 @@ The following guide outlines how to implement Android Pay
 - For testing, you need to [add a card](https://support.google.com/androidpay/answer/6289372?hl=en&ref_topic=6224823) to Android Pay on your test device.
 
 ## Getting Started
+- Sign up for a merchant ID from Android Pay - 
+   - Add your company, site origin and a company email to the [following form](https://goo.gl/forms/SiKd7GAESCPNg9H83)
+   - Google will provide a merchant ID within 24 hours.
 - Download the latest version of [Chrome Dev](https://play.google.com/store/apps/details?id=com.chrome.dev) for Android.
-- Enable [this Chrome flag](chrome://flags/#enable-experimental-web-platform-features) to test the PaymentRequest API.
 - Because Android Pay in Chrome utilizes the PaymentRequest API, it is essential that you familiarize yourself with the [integration guide](https://developers.google.com/web/fundamentals/primers/payment-request/?hl=en) prior to continuing.
 - Work through the demo to get acquainted with the PaymentRequest API.
 - Even if you are not an Android developer, it will be useful to acquaint yourself with the [Android Pay in-app APIs](https://developers.google.com/android-pay/android/tutorial).  Because the responses returned by Android Pay are the same on Android & Chrome, the information on response handling is useful.
